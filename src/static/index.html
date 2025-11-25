@@ -19,6 +19,28 @@
           <!-- Activities will be loaded here -->
           <p>Loading activities...</p>
         </div>
+
+        <!-- Template for activity cards (hidden) -->
+        <template id="activity-template">
+          <div class="activity-card">
+            <h4 class="activity-title"><!-- activity name --></h4>
+            <p class="activity-desc"><!-- description --></p>
+            <p class="activity-schedule"><strong>Schedule:</strong> <!-- schedule --></p>
+
+            <div class="participants-section">
+              <div class="participants-header">
+                <h5>Participants</h5>
+                <div class="participant-count">0</div>
+              </div>
+
+              <ul class="participants-list">
+                <!-- <li> entries will be injected here by app.js -->
+              </ul>
+
+              <div class="participants-empty hidden">No participants yet.</div>
+            </div>
+          </div>
+        </template>
       </section>
 
       <section id="signup-container">
