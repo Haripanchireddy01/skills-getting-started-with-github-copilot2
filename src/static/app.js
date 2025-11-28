@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function loadActivities() {
     try {
-      const res = await fetch('/activities');
+      const res = await fetch('/activities', { cache: 'no-store' });
       if (!res.ok) throw new Error('Failed to load activities');
       const activities = await res.json();
 
@@ -65,8 +65,33 @@ document.addEventListener('DOMContentLoaded', () => {
             spanEmail.className = 'participant-email';
             spanEmail.textContent = email;
 
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'participant-remove';
+            removeBtn.title = 'Remove participant';
+            removeBtn.innerHTML = '✕';
+            removeBtn.addEventListener('click', async (ev) => {
+              ev.stopPropagation();
+              if (!confirm(`Remove ${email} from ${name}?`)) return;
+              try {
+                const url = `/activities/${encodeURIComponent(name)}/signup?email=${encodeURIComponent(email)}`;
+                const res = await fetch(url, { method: 'DELETE' });
+                const body = await res.json();
+                if (!res.ok) {
+                  showMessage(body.detail || 'Could not remove participant.', 'error');
+                  return;
+                }
+                showMessage(body.message || 'Participant removed.', 'success');
+                // reload activities to update UI and counts
+                await loadActivities();
+              } catch (err) {
+                console.error(err);
+                showMessage('Network error while removing participant.', 'error');
+              }
+            });
+
             li.appendChild(avatar);
             li.appendChild(spanEmail);
+            li.appendChild(removeBtn);
             listEl.appendChild(li);
           });
         }

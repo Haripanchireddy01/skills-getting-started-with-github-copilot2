@@ -176,8 +176,8 @@ footer {
 }
 
 .participants-list {
-  list-style: disc;
-  padding-left: 20px;
+  list-style: none;
+  padding-left: 0;
   margin: 0;
   max-height: 140px;
   overflow: auto;
@@ -199,6 +199,21 @@ footer {
   gap: 10px;
   font-size: 0.95rem;
   color: #444;
+}
+
+.participant-remove {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: #c62828;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 4px 8px;
+}
+
+.participant-remove:hover {
+  color: #8e0000;
 }
 
 .participant-avatar {
